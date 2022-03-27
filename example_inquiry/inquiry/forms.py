@@ -26,3 +26,8 @@ class InquiryForm1(forms.Form):
         widget=forms.Textarea # フォームをtextarea要素に変更できる
     )
 
+
+class InquiryForm2(forms.ModelForm):
+    class Meta:
+        model = Inquiry # 使用するmodelを指定
+        fields = ('name', 'email', 'title', 'contents') # 表示するフォームを指定

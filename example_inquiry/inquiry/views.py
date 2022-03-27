@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 
 from .models import Inquiry
-from .forms import InquiryForm1
+from .forms import InquiryForm1, InquiryForm2
 
 def inquiry1(request):
+    """forms.Formを用いたお問い合わせ"""
     if request.method == 'POST':
         # フォーム送信データを受け取る
         form = InquiryForm1(request.POST)
@@ -29,5 +30,20 @@ def inquiry1(request):
 
     return render(request, 'inquiry/inquiry.html', {'form': form})
 
+def inquiry2(request):
+    """forms.ModelFormを用いたお問い合わせ"""
+    if request.method == 'POST':
+        # フォーム送信データを受け取る
+        form = InquiryForm2(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('inquiry_done')
+
+    else:
+        form = InquiryForm2()
+
+    return render(request, 'inquiry/inquiry.html', {'form': form})
+
 def done(request):
+    """お問い合わせ完了ページ"""
     return render(request, 'inquiry/done.html')            
